@@ -1,0 +1,16 @@
+[
+{
+  "modid": "modenergie",
+  "name": "Energie Mod",
+  "description": "Un mod qui permet l'ajout d'une barre d'energie.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["BlackDrag00n"],
+  "credits": "Forge et Minecraft Forge France",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
