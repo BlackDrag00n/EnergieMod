@@ -1,0 +1,1 @@
+Dossier contenant les propriétés (variable) qu'on rajoute aux joueurs !
