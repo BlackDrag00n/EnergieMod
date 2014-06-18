@@ -1,6 +1,6 @@
 package fr.paramystick.pykenergie.items;
 
-import fr.paramystick.pykenergie.core.Energie;
+import fr.paramystick.pykenergie.core.PyKEnergieMod;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 

@@ -44,10 +44,9 @@ public class PyKEnergieMod
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		/* Ajout de la Gourde */
-		itemGourde = new ItemGourde().setUnlocalizedName("gourde").setMaxStackSize(1);
+		itemGourde = new ItemGourde().setUnlocalizedName("gourde").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
 		GameRegistry.registerItem(itemGourde, "item_gourde");
 		/* --- */
-	
 	}
 
     /**
@@ -60,8 +59,7 @@ public class PyKEnergieMod
 		proxy.registerRender();
 		
 		//Recette de craft
-		/* Item_Gourde */ GameRegistry.addRecipe(new ItemStack(itemGourde), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string,
-			'Y', Items.leather});
+		GameRegistry.addRecipe(new ItemStack(itemGourde), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string, 'Y', Items.leather}); /* Item_Gourde */ 
 	}
 
     /**
