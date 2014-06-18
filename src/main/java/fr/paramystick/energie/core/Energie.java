@@ -1,6 +1,8 @@
 package fr.paramystick.energie.core;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -34,8 +36,8 @@ public class Energie
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		/* Ajout d'une Gourde */
-		itemGourde = new ItemGourde().setUnlocalizedName("gourde");
+		/* Ajout de la Gourde */
+		itemGourde = new ItemGourde().setUnlocalizedName("gourde").setMaxStackSize(1);
 		GameRegistry.registerItem(itemGourde, "item_gourde");
 		/* --- */
 	
@@ -49,6 +51,10 @@ public class Energie
 	{
 		// Appel de la méthode pour afficher dans les logs si on est côté client ou serveur
 		proxy.registerRender();
+		
+		//Recette de craft
+		/* Item_Gourde */ GameRegistry.addRecipe(new ItemStack(itemGourde), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string,
+			'Y', Items.leather});
 	}
 
     /**
