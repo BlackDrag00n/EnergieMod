@@ -1,5 +1,6 @@
 package fr.paramystick.energie.core;
 
+import net.minecraft.item.Item;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -7,6 +8,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import fr.paramystick.energie.items.ItemGourde;
 
 @Mod(modid = "modenergie", name = "Energie Mod", version = "0.0.1", dependencies = "required-after:ffmtlibs")
 public class Energie
@@ -17,6 +20,7 @@ public class Energie
 	@Instance("modenergie")
 	public static Energie instance;
     public static final String MODID = "modenergie";
+    public static Item itemGourde; // Gourde
     
     /**
      * Déclaration des proxy, on appel cette méthode dans la méthode init
@@ -30,6 +34,10 @@ public class Energie
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		/* Ajout d'une Gourde */
+		itemGourde = new ItemGourde().setUnlocalizedName("gourde");
+		GameRegistry.registerItem(itemGourde, "item_gourde");
+		/* --- */
 	
 	}
 
