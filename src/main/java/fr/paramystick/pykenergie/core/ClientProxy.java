@@ -1,4 +1,4 @@
-package fr.paramystick.energie.core;
+package fr.paramystick.pykenergie.core;
 
 public class ClientProxy extends CommonProxy
 {
