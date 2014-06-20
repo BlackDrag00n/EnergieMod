@@ -14,6 +14,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import fr.paramystick.pykenergie.gui.PyKEnergieModTabs;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fr.paramystick.pykenergie.items.ItemGourde;
+import fr.paramystick.pykenergie.items.ItemGourdeVide;
 
 @Mod(modid = "pykenergiemod", name = "PyK Energie Mod", version = "0.0.1", dependencies = "required-after:ffmtlibs")
 public class PyKEnergieMod
@@ -25,6 +26,7 @@ public class PyKEnergieMod
 	public static PyKEnergieMod instance;
     public static final String MODID = "pykenergiemod";
     public static Item itemGourde; // Gourde
+    public static Item itemGourdeVide; // Gourde Vide
     
     /**
      * Déclaration des proxy, on appel cette méthode dans la méthode init
@@ -47,6 +49,11 @@ public class PyKEnergieMod
 		itemGourde = new ItemGourde().setUnlocalizedName("gourde").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
 		GameRegistry.registerItem(itemGourde, "item_gourde");
 		/* --- */
+		
+		/* Ajout de la Gourde Vide*/
+		itemGourdeVide = new ItemGourdeVide().setUnlocalizedName("gourdevide").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
+		GameRegistry.registerItem(itemGourdeVide, "item_gourde_vide");
+		/* --- */
 	}
 
     /**
@@ -59,8 +66,9 @@ public class PyKEnergieMod
 		proxy.registerRender();
 		
 		//Recette de craft
-		GameRegistry.addRecipe(new ItemStack(itemGourde), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string, 'Y', Items.leather}); /* Item_Gourde */ 
-	}
+		GameRegistry.addRecipe(new ItemStack(itemGourdeVide), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string, 'Y', Items.leather}); /* Item Gourde Vide */
+		GameRegistry.addShapelessRecipe(new ItemStack(itemGourde), new Object[]{new ItemStack(PyKEnergieMod.itemGourdeVide, 1), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.potionitem, 1, 0)}); /* Item Gourde Vide */
+		}
 
     /**
      * Permet de principalement d'interagir avec les autres mods.
