@@ -4,6 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -11,6 +12,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import fr.minecraftforgefrance.ffmtlibs.network.PacketManager;
+import fr.paramystick.pykenergie.events.PyKEnergieEventHandler;
 import fr.paramystick.pykenergie.gui.PyKEnergieModTabs;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fr.paramystick.pykenergie.items.ItemGourde;
@@ -33,6 +36,11 @@ public class PyKEnergieMod
      */
 	@SidedProxy(clientSide = "fr.paramystick.pykenergie.core.ClientProxy", serverSide = "fr.paramystick.pykenergie.core.CommonProxy")
 	public static CommonProxy proxy;
+
+    /**
+     * Envoie de packet
+     */
+	public static final PacketManager PyKEnergiepacketHandler = new PacketManager("fr.paramystick.pykenergie.networks", MODID, "pykenergiemod");
 
     /**
      * Déclaration des tables creatives
@@ -64,6 +72,7 @@ public class PyKEnergieMod
 	{
 		// Appel de la méthode pour afficher dans les logs si on est côté client ou serveur
 		proxy.registerRender();
+		MinecraftForge.EVENT_BUS.register(new PyKEnergieEventHandler());
 		
 		//Recette de craft
 		GameRegistry.addRecipe(new ItemStack(itemGourdeVide), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string, 'Y', Items.leather}); /* Item Gourde Vide */

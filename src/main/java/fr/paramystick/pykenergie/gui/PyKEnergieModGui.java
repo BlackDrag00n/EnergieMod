@@ -2,12 +2,16 @@ package fr.paramystick.pykenergie.gui;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import fr.paramystick.pykenergie.extendedplayer.ExtendedPlayerEnergie;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.mco.McoClient;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -15,12 +19,17 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
 public class PyKEnergieModGui extends Gui
 {	
-	public Minecraft mc;
-
+	public Minecraft mc = FMLClientHandler.instance().getClient();
+			
+	public PyKEnergieModGui(Minecraft mc)
+	{
+		this.mc = mc;
+	}
+	
 	public static final String PyKEnergieModguiResource = "textures/gui/status_Gui.png";
 
 	// Variable joueur (sera dynamique et va disparaitre d'ici)
-	public static final float fatigue = 65.25f;
+	public float fatigue, EnergieFloat, maxEnergieFloat;
 
 	// Taille de la barre (restera fixe pour toutes les barres)
 	public static final int barHauteur = 8;
@@ -37,11 +46,6 @@ public class PyKEnergieModGui extends Gui
 	// Contour des barre
 	public int barContour = 4; // bling bling = 5
 	
-	public PyKEnergieModGui(Minecraft mc)
-	{
-		this.mc = mc;
-	}
-	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onGuiRender(RenderGameOverlayEvent event)
@@ -51,6 +55,11 @@ public class PyKEnergieModGui extends Gui
 		{
 			return;
 		}
+		
+		EnergieFloat = ExtendedPlayerEnergie.get(mc.thePlayer).Energie;
+		fatigue = EnergieFloat;
+		maxEnergieFloat = ExtendedPlayerEnergie.get(mc.thePlayer).maxEnergie;
+		
 		
 		// Initialisation graphique
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -96,7 +105,7 @@ public class PyKEnergieModGui extends Gui
 		this.drawTexturedModalRect(barFatiguePos, FatiguePosY, 0, barHauteur * barContour, barLongueur, barHauteur); // Contour de la barre
 		this.drawTexturedModalRect(iconFatiguePosX, FatiguePosY - 4, barFatigueIconeU, barFatigueIconeV, IconeLargeur, IconeHauteur); // Icone de l'energie
 		// Affichage du texte de la barre de fatigue
-		Minecraft.getMinecraft().fontRenderer.drawString(fatigue + "% (barFatigue:"+barFatigue+"/"+barLongueur+")", textFatiguePos, FatiguePosY, 16777215);
+		Minecraft.getMinecraft().fontRenderer.drawString(fatigue + "% (EnergieFloat:"+EnergieFloat+"/"+maxEnergieFloat+")(barFatigue:"+barFatigue+"/"+barLongueur+")", textFatiguePos, FatiguePosY, 16777215);
 		
 	}
 }
