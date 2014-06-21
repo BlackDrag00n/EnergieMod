@@ -1,0 +1,1 @@
+Dossier contenant les informations (PACKAGES ou autre) qu'on envoie au serveur.
