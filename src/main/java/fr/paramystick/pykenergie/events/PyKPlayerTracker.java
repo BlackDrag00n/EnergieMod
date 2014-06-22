@@ -1,18 +1,22 @@
 package fr.paramystick.pykenergie.events;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import fr.paramystick.pykenergie.core.CommonProxy;
 import fr.paramystick.pykenergie.extendedplayer.ExtendedPlayerEnergie;
 
-public class PyKEnergieEventHandler
+public class PyKPlayerTracker
 {
 	private CommonProxy proxy;
-
 
 	/** Event lors de la construction d'entité. */
 	@SubscribeEvent
@@ -44,7 +48,6 @@ public class PyKEnergieEventHandler
 		}
 	}
 
-	
 	/** Event lorsque l'entité join le serveur. */
 	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent event)
@@ -62,6 +65,23 @@ public class PyKEnergieEventHandler
 			// Money
 			((ExtendedPlayerEnergie) (event.entity.getExtendedProperties(ExtendedPlayerEnergie.EXT_PROP_NAME))).sync();
 			
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onPlayerTick(TickEvent.PlayerTickEvent event)
+	{
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(event.player);
+		
+		if(player.isSprinting())
+		{
+			prop.setEnergie(prop.Energie - 1);
+		}
+		else
+		{
+			prop.setEnergie(prop.Energie - 0.01f);
 		}
 	}
 }

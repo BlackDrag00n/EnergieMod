@@ -9,14 +9,14 @@ import io.netty.buffer.ByteBuf;
 
 public class PacketEnergie extends FFMTPacket
 {
-	private long maxEnergie, Energie;
+	private float maxEnergie, Energie;
 	
 	public PacketEnergie()
 	{
 	
 	}
 	
-	public PacketEnergie(long maxEnergie, long Energie)
+	public PacketEnergie(float maxEnergie, float Energie)
 	{
 		this.maxEnergie = maxEnergie;
 		this.Energie = Energie;
@@ -25,15 +25,15 @@ public class PacketEnergie extends FFMTPacket
 	@Override
 	public void writeData(ByteBuf buffer) throws IOException
 	{
-		buffer.writeLong(maxEnergie);
-		buffer.writeLong(Energie);
+		buffer.writeFloat(maxEnergie);
+		buffer.writeFloat(Energie);
 	}
 
 	@Override
 	public void readData(ByteBuf buffer)
 	{
-		this.maxEnergie = buffer.readLong();
-		this.Energie = buffer.readLong();
+		this.maxEnergie = buffer.readFloat();
+		this.Energie = buffer.readFloat();
 	}
 	
 	@Override

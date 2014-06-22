@@ -13,7 +13,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import fr.minecraftforgefrance.ffmtlibs.network.PacketManager;
-import fr.paramystick.pykenergie.events.PyKEnergieEventHandler;
+import fr.paramystick.pykenergie.events.PyKPlayerTracker;
 import fr.paramystick.pykenergie.gui.PyKEnergieModTabs;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fr.paramystick.pykenergie.items.ItemGourde;
@@ -72,7 +72,8 @@ public class PyKEnergieMod
 	{
 		// Appel de la méthode pour afficher dans les logs si on est côté client ou serveur
 		proxy.registerRender();
-		MinecraftForge.EVENT_BUS.register(new PyKEnergieEventHandler());
+		// Tracker du joueur
+		MinecraftForge.EVENT_BUS.register(new PyKPlayerTracker());
 		
 		//Recette de craft
 		GameRegistry.addRecipe(new ItemStack(itemGourdeVide), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string, 'Y', Items.leather}); /* Item Gourde Vide */

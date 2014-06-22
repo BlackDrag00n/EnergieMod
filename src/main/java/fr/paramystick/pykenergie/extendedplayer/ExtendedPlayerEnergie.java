@@ -15,7 +15,7 @@ public class ExtendedPlayerEnergie implements IExtendedEntityProperties
 	//Identifiant à la propriété
 	public final static String EXT_PROP_NAME = "extPlayPyKEnergie";
 	private final EntityPlayer player;
-	public long Energie, maxEnergie;
+	public float Energie, maxEnergie;
 	//-----------------------------------------------------------------------------------------
 	
 	//Le constructeur. Il prend en paramètre le player auquel nous allons toucher.
@@ -112,7 +112,7 @@ public class ExtendedPlayerEnergie implements IExtendedEntityProperties
 	//-----------------------------------------------------------------------------------------
 	
 	// Pour des commandes
-	public boolean removeEnergie(long amount)
+	public boolean removeEnergie(float amount)
 	{
 		boolean sufficient = amount <= this.Energie;
 
@@ -127,18 +127,18 @@ public class ExtendedPlayerEnergie implements IExtendedEntityProperties
 		return sufficient;
 	}
 
-	public void addEnergie(long amount)
+	public void addEnergie(float amount)
 	{
 		this.Energie += amount;
 		this.sync();
 	}
 
-	public long getSoif()
+	public float getSoif()
 	{
 		return this.Energie;
 	}
 
-	public void setEnergie(long newEnergie)
+	public void setEnergie(float newEnergie)
 	{
 		this.Energie = newEnergie;
 		this.sync();
