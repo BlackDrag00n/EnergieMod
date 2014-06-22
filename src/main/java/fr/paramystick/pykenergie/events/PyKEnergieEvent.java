@@ -74,15 +74,15 @@ public class PyKEnergieEvent
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
+	//@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event)
 	{
-		Minecraft mc = FMLClientHandler.instance().getClient();
-		EntityPlayer player = mc.thePlayer;
+		//Minecraft mc = FMLClientHandler.instance().getClient();
+		//EntityPlayer player = mc.thePlayer;
 		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(event.player);
 		
-		if(player.isSprinting())
+		if(event.player.isSprinting())
 		{
 			prop.setEnergie(prop.Energie - 0.5f); // 0.01f
 		}
@@ -97,11 +97,11 @@ public class PyKEnergieEvent
 				timerEnergie++;
 		}
 		
-		if(player.isPlayerSleeping())
+		if(event.player.isPlayerSleeping())
 		{
 			prop.setEnergie(prop.Energie + 1.01f);
 			
-			if(player.getSleepTimer() >= 99)
+			if(event.player.getSleepTimer() >= 99)
 			{
 				prop.setEnergie(100f);
 			}
