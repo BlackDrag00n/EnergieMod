@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayer.EnumStatus;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
@@ -82,13 +84,13 @@ public class PyKEnergieEvent
 		
 		if(player.isSprinting())
 		{
-			prop.setEnergie(prop.Energie - 0.5f); // 0.01
+			prop.setEnergie(prop.Energie - 0.5f); // 0.01f
 		}
 		else
 		{
 			if (timerEnergie == 60)
 			{
-				prop.setEnergie(prop.Energie - 0.00001f);
+				prop.setEnergie(prop.Energie - 0.1f); //0.00001f
 				timerEnergie = 0;
 			}
 			else
@@ -103,7 +105,12 @@ public class PyKEnergieEvent
 			{
 				prop.setEnergie(100f);
 			}
-			//mc.thePlayer.addChatMessage(new ChatComponentText("[DEBUG] getSleepTimer: "+player.isPlayerFullyAsleep()));
+		}
+		
+		if(prop.getEnergie() <= 0)
+		{
+			player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 20, 3));
+			//mc.thePlayer.addChatMessage(new ChatComponentText("[DEBUG] getEnergie: "+prop.getEnergie()));
 		}
 		
 	}

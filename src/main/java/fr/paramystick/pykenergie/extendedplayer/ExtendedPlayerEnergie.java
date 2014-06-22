@@ -133,7 +133,7 @@ public class ExtendedPlayerEnergie implements IExtendedEntityProperties
 		this.sync();
 	}
 
-	public float getSoif()
+	public float getEnergie()
 	{
 		return this.Energie;
 	}
