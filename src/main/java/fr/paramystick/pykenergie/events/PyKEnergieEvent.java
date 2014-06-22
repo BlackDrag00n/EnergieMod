@@ -74,23 +74,26 @@ public class PyKEnergieEvent
 		}
 	}
 	
-	//@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event)
 	{
-		//Minecraft mc = FMLClientHandler.instance().getClient();
-		//EntityPlayer player = mc.thePlayer;
 		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(event.player);
-		
+				
 		if(event.player.isSprinting())
 		{
-			prop.setEnergie(prop.Energie - 0.5f); // 0.01f
+			if(prop.getEnergie() >= 0)
+				prop.setEnergie(prop.Energie - 0.01f); // 0.01f
+			if(prop.getEnergie() < 0)
+				prop.setEnergie(0);
 		}
 		else
 		{
 			if (timerEnergie == 60)
 			{
-				prop.setEnergie(prop.Energie - 0.1f); //0.00001f
+				if(prop.getEnergie() >= 0)
+					prop.setEnergie(prop.Energie - 0.00001f); //0.00001f
+				if(prop.getEnergie() < 0)
+					prop.setEnergie(0);
 				timerEnergie = 0;
 			}
 			else
@@ -99,12 +102,13 @@ public class PyKEnergieEvent
 		
 		if(event.player.isPlayerSleeping())
 		{
-			prop.setEnergie(prop.Energie + 1.01f);
-			
-			if(event.player.getSleepTimer() >= 99)
-			{
+			if(prop.getEnergie() <= 100)
+				prop.setEnergie(prop.Energie + 0.2f);
+			if(prop.getEnergie() > 100)
 				prop.setEnergie(100f);
-			}
+			
+			if(event.player.isPlayerFullyAsleep())
+				prop.setEnergie(100f);
 		}
 		
 		if(prop.getEnergie() <= 5)
@@ -117,20 +121,5 @@ public class PyKEnergieEvent
 			event.player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 0, true));
 
 		//mc.thePlayer.addChatMessage(new ChatComponentText("[DEBUG] getEnergie: "+prop.getEnergie()));
-	}
-	
-	//@SideOnly(Side.CLIENT)
-    //@SubscribeEvent
-    //public void onPlayerWakeUpEvent(PlayerSleepInBedEvent event)
-	//{
-		//Minecraft mc = FMLClientHandler.instance().getClient();
-		//EntityPlayer player = mc.thePlayer;
-		//ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
-		
-		//if(player.isPlayerFullyAsleep())
-		//{
-			//prop.setEnergie(100.00f);
-		//}
-	//}
-     
+	}     
 }
