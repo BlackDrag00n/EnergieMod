@@ -5,6 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -73,6 +74,7 @@ public class PyKEnergieMod
 		// Appel de la méthode pour afficher dans les logs si on est côté client ou serveur
 		proxy.registerRender();
 		// Tracker du joueur
+		FMLCommonHandler.instance().bus().register(new PyKPlayerTracker());
 		MinecraftForge.EVENT_BUS.register(new PyKPlayerTracker());
 		
 		//Recette de craft

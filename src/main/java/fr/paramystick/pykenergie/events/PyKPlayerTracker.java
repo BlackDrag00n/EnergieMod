@@ -2,10 +2,13 @@ package fr.paramystick.pykenergie.events;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayer.EnumStatus;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -17,6 +20,7 @@ import fr.paramystick.pykenergie.extendedplayer.ExtendedPlayerEnergie;
 public class PyKPlayerTracker
 {
 	private CommonProxy proxy;
+	public int timerEnergie = 0;
 
 	/** Event lors de la construction d'entité. */
 	@SubscribeEvent
@@ -72,16 +76,50 @@ public class PyKPlayerTracker
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event)
 	{
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		Minecraft mc = FMLClientHandler.instance().getClient();
+		EntityPlayer player = mc.thePlayer;
 		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(event.player);
 		
 		if(player.isSprinting())
 		{
-			prop.setEnergie(prop.Energie - 1);
+			prop.setEnergie(prop.Energie - 0.5f); // 0.01
 		}
 		else
 		{
-			prop.setEnergie(prop.Energie - 0.01f);
+			if (timerEnergie == 60)
+			{
+				prop.setEnergie(prop.Energie - 0.00001f);
+				timerEnergie = 0;
+			}
+			else
+				timerEnergie++;
+		}
+		
+		if(player.isPlayerSleeping())
+		{
+			prop.setEnergie(prop.Energie + 0.02f);
+			
+			if(player.getSleepTimer() >= 99)
+			{
+				prop.setEnergie(100f);
+			}
+			mc.thePlayer.addChatMessage(new ChatComponentText("[DEBUG] getSleepTimer: "+player.isPlayerFullyAsleep()));
+		}
+		
+	}
+	
+	@SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void onPlayerWakeUpEvent(PlayerSleepInBedEvent event)
+	{
+		Minecraft mc = FMLClientHandler.instance().getClient();
+		EntityPlayer player = mc.thePlayer;
+		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
+		
+		if(player.isPlayerFullyAsleep())
+		{
+			prop.setEnergie(100.00f);
 		}
 	}
+     
 }

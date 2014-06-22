@@ -29,7 +29,8 @@ public class PyKEnergieModGui extends Gui
 	public static final String PyKEnergieModguiResource = "textures/gui/status_Gui.png";
 
 	// Variable joueur (sera dynamique et va disparaitre d'ici)
-	public float fatigue, EnergieFloat, maxEnergieFloat;
+	public int barFatigue;
+	public float barFatigueText, EnergieFloat, maxEnergieFloat;
 
 	// Taille de la barre (restera fixe pour toutes les barres)
 	public static final int barHauteur = 8;
@@ -57,7 +58,6 @@ public class PyKEnergieModGui extends Gui
 		}
 		
 		EnergieFloat = ExtendedPlayerEnergie.get(mc.thePlayer).Energie;
-		fatigue = EnergieFloat;
 		maxEnergieFloat = ExtendedPlayerEnergie.get(mc.thePlayer).maxEnergie;
 		
 		
@@ -70,7 +70,8 @@ public class PyKEnergieModGui extends Gui
 		/**
 		 * BARRE DE FATIGUE
 		 */
-		int barFatigue = MathHelper.ceiling_float_int((fatigue / 100f) * barLongueur); // Calcul en fonction des valeurs joueurs pour la barre de fatigue
+		barFatigue = MathHelper.ceiling_float_int((EnergieFloat / 100f) * barLongueur); // Calcul en fonction des valeurs joueurs pour la barre de fatigue
+		barFatigueText = (float)(Math.round(EnergieFloat * Math.pow(10,2)) / Math.pow(10,2));;
 		
 		if(barFatigue > barLongueur) // Si les valeurs dépasse la longeur de la barre on bloque la barre a son maximum
 		{
@@ -105,7 +106,7 @@ public class PyKEnergieModGui extends Gui
 		this.drawTexturedModalRect(barFatiguePos, FatiguePosY, 0, barHauteur * barContour, barLongueur, barHauteur); // Contour de la barre
 		this.drawTexturedModalRect(iconFatiguePosX, FatiguePosY - 4, barFatigueIconeU, barFatigueIconeV, IconeLargeur, IconeHauteur); // Icone de l'energie
 		// Affichage du texte de la barre de fatigue
-		Minecraft.getMinecraft().fontRenderer.drawString(fatigue + "% (EnergieFloat:"+EnergieFloat+"/"+maxEnergieFloat+")(barFatigue:"+barFatigue+"/"+barLongueur+")", textFatiguePos, FatiguePosY, 16777215);
+		Minecraft.getMinecraft().fontRenderer.drawString(barFatigueText + "% (EnergieFloat:"+EnergieFloat+"/"+maxEnergieFloat+")(barFatigue:"+barFatigue+"/"+barLongueur+")", textFatiguePos, FatiguePosY, 16777215);
 		
 	}
 }

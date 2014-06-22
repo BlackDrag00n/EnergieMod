@@ -140,8 +140,16 @@ public class ExtendedPlayerEnergie implements IExtendedEntityProperties
 
 	public void setEnergie(float newEnergie)
 	{
-		this.Energie = newEnergie;
-		this.sync();
+		if (this.Energie >= 0)
+		{
+			this.Energie = newEnergie;
+			this.sync();
+		}
+		else if(this.Energie < 0)
+		{
+			this.Energie = 0;
+			this.sync();
+		}
 	}
 	
 	//-----------------------------------------------------------------------------------------
