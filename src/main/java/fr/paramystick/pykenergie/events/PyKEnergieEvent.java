@@ -108,13 +108,13 @@ public class PyKEnergieEvent
 		}
 		
 		if(prop.getEnergie() <= 5)
-			player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 3, true));
+			event.player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 3, true));
 		else if(prop.getEnergie() <= 10)
-				player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 2, true));
+			event.player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 2, true));
 		else if(prop.getEnergie() <= 15)
-			player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 1, true));
+			event.player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 1, true));
 		else if(prop.getEnergie() <= 20)
-			player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 0, true));
+			event.player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 19, 0, true));
 
 		//mc.thePlayer.addChatMessage(new ChatComponentText("[DEBUG] getEnergie: "+prop.getEnergie()));
 	}
