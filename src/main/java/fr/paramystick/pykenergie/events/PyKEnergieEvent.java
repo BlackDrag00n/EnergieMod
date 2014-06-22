@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import fr.paramystick.pykenergie.core.CommonProxy;
 import fr.paramystick.pykenergie.extendedplayer.ExtendedPlayerEnergie;
 
-public class PyKPlayerTracker
+public class PyKEnergieEvent
 {
 	private CommonProxy proxy;
 	public int timerEnergie = 0;
@@ -26,7 +26,7 @@ public class PyKPlayerTracker
 	@SubscribeEvent
 	public void onEntityConstructing(EntityConstructing event)
 	{
-		// Money
+		// Energie
 		if (event.entity instanceof EntityPlayer && ExtendedPlayerEnergie.get((EntityPlayer) event.entity) == null)
 		{
 			ExtendedPlayerEnergie.register((EntityPlayer) event.entity);
@@ -43,7 +43,7 @@ public class PyKPlayerTracker
 			NBTTagCompound playerData = new NBTTagCompound();
 			proxy.storeEntityData(((EntityPlayer) event.entity).getDisplayName(), playerData);
 			
-			// Money
+			// Energie
 			((ExtendedPlayerEnergie) (event.entity.getExtendedProperties(ExtendedPlayerEnergie.EXT_PROP_NAME))).saveNBTData(playerData);
 			ExtendedPlayerEnergie.saveProxyData((EntityPlayer) event.entity);
 			
@@ -62,11 +62,11 @@ public class PyKPlayerTracker
 			
 			if (playerData != null)
 			{
-				// Money
+				// Energie
 				((ExtendedPlayerEnergie) (event.entity.getExtendedProperties(ExtendedPlayerEnergie.EXT_PROP_NAME))).loadNBTData(playerData);
 			}
 
-			// Money
+			// Energie
 			((ExtendedPlayerEnergie) (event.entity.getExtendedProperties(ExtendedPlayerEnergie.EXT_PROP_NAME))).sync();
 			
 		}
@@ -103,23 +103,23 @@ public class PyKPlayerTracker
 			{
 				prop.setEnergie(100f);
 			}
-			mc.thePlayer.addChatMessage(new ChatComponentText("[DEBUG] getSleepTimer: "+player.isPlayerFullyAsleep()));
+			//mc.thePlayer.addChatMessage(new ChatComponentText("[DEBUG] getSleepTimer: "+player.isPlayerFullyAsleep()));
 		}
 		
 	}
 	
-	@SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void onPlayerWakeUpEvent(PlayerSleepInBedEvent event)
-	{
-		Minecraft mc = FMLClientHandler.instance().getClient();
-		EntityPlayer player = mc.thePlayer;
-		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
+	//@SideOnly(Side.CLIENT)
+    //@SubscribeEvent
+    //public void onPlayerWakeUpEvent(PlayerSleepInBedEvent event)
+	//{
+		//Minecraft mc = FMLClientHandler.instance().getClient();
+		//EntityPlayer player = mc.thePlayer;
+		//ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
 		
-		if(player.isPlayerFullyAsleep())
-		{
-			prop.setEnergie(100.00f);
-		}
-	}
+		//if(player.isPlayerFullyAsleep())
+		//{
+			//prop.setEnergie(100.00f);
+		//}
+	//}
      
 }
