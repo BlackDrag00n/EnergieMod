@@ -114,22 +114,31 @@ public class ExtendedPlayerEnergie implements IExtendedEntityProperties
 	// Pour des commandes
 	public boolean removeEnergie(float amount)
 	{
-		boolean sufficient = amount <= this.Energie;
+		boolean sufficient = true;
 
-		if (sufficient)
+		if ((this.Energie - amount) <= 0)
+		{
+			this.Energie = 0f;
+			sufficient = false;
+		}
+		else
 		{
 			this.Energie -= amount;
-			this.sync();
-		} else {
-			return false;
+			sufficient =  true;
 		}
+		
+		this.sync();
 
 		return sufficient;
 	}
 
 	public void addEnergie(float amount)
 	{
-		this.Energie += amount;
+		if ((this.Energie + amount) >= 100)
+			this.Energie = 100f;
+		else
+			this.Energie += amount;
+		
 		this.sync();
 	}
 
