@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class ItemGourde extends Item
 {
-	public float EnergieGagnerGourde = 100f;// 20f
+	public float EnergieGagnerGourde = 100f; // Variable qui définie de combien on remontre l'energie
 	
 	public ItemGourde()
 	{
@@ -38,10 +38,7 @@ public class ItemGourde extends Item
         if (!par2World.isRemote)
         {
         	//par3EntityPlayer.clearActivePotions();
-        	if (prop.getEnergie() < 100)
-        	{
-        		prop.addEnergie(EnergieGagnerGourde);
-        	}
+        	prop.addEnergie(EnergieGagnerGourde); // On a bu donc on remonte l'energie
         }
 
         return par1ItemStack.stackSize <= 0 ? new ItemStack(PyKEnergieMod.itemGourdeVide) : par1ItemStack;
