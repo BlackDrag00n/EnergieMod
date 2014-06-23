@@ -97,28 +97,20 @@ public class PyKEnergieEvent
 		else
 			timerEnergie++;
 		
-		// Si le joueur ne [cour] [nage] pas
-		if(!event.player.isSprinting() && !(event.player.isInWater() && isPlayerMoving(event.player)))
+		// Compteur atteint on vérifie (Timer d'energie)
+		if (timerEnergie == timerCompteurMax)
 		{
-			if (timerEnergie == timerCompteurMax)
-			{
+			// Si le joueur ne [cour] [nage] pas
+			if(!event.player.isSprinting() && !(event.player.isInWater() && isPlayerMoving(event.player)))
 				prop.removeEnergie(EnergiePerdu);
-			}
-		}
-		
-		// Si le joueur cours
-		if(event.player.isSprinting())
-		{
-			prop.removeEnergie(EnergiePerduCourir);
-		}
-		
-		// Si le joueur Nage
-		if(event.player.isInWater() && isPlayerMoving(event.player))
-		{
-			if (timerEnergie == timerCompteurMax)
-			{
+			
+			// Si le joueur cours
+			if(event.player.isSprinting())
+				prop.removeEnergie(EnergiePerduCourir);
+			
+			// Si le joueur Nage
+			if(event.player.isInWater() && isPlayerMoving(event.player))
 				prop.removeEnergie(EnergiePerduNager);
-			}
 		}
 		
 		// Si le joueur est allongé
@@ -129,7 +121,6 @@ public class PyKEnergieEvent
 			if(event.player.isPlayerFullyAsleep())
 				prop.setEnergie(100f);
 		}
-		
 		
 		// Effet si energie faible
 		if(prop.getEnergie() <= 5)
