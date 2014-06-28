@@ -11,6 +11,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
@@ -25,39 +27,39 @@ public class ItemGourde extends Item
 		this.setCreativeTab(PyKEnergieMod.PyKEnergieModTabs);
 	}
 		
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer payer)
     {
-		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(par3EntityPlayer);
+		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(payer);
 		
-        if (!par3EntityPlayer.capabilities.isCreativeMode)
+        if (!payer.capabilities.isCreativeMode)
         {
-            --par1ItemStack.stackSize;
+            --stack.stackSize;
         }
 
         // L'item a été bu
-        if (!par2World.isRemote)
+        if (!world.isRemote)
         {
         	//par3EntityPlayer.clearActivePotions();
         	prop.addEnergie(EnergieGagnerGourde); // On a bu donc on remonte l'energie
         }
 
-        return par1ItemStack.stackSize <= 0 ? new ItemStack(PyKEnergieMod.itemGourdeVide) : par1ItemStack;
+        return stack.stackSize <= 0 ? new ItemStack(PyKEnergieMod.itemGourdeVide) : stack;
     }
 	
-    public int getMaxItemUseDuration(ItemStack par1ItemStack)
+    public int getMaxItemUseDuration(ItemStack stack)
     {
         return 32;
     }
 
-    public EnumAction getItemUseAction(ItemStack par1ItemStack)
+    public EnumAction getItemUseAction(ItemStack stack)
     {
         return EnumAction.drink;
     }	
 	
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
-        par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-        return par1ItemStack;
+    	player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        return stack;
     }
     
     @SideOnly(Side.CLIENT)
