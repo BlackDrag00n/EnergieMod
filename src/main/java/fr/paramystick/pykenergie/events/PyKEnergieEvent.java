@@ -18,6 +18,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -39,7 +40,8 @@ public class PyKEnergieEvent
 	
 	public float EnergiePerduCourir = 0.05f; 	// - 0.05f		[Fonctionnel]
 	public float EnergiePerduAttaquer = 10f;	// - 0.05f		[Fonctionnel] (Triche Valeur/2 car bug 2x energie enlever, innexplicable)
-	public float EnergiePerduMiner = 20f;		// - 0.05f		[A faire]
+	public float EnergiePerduMiner = 0.05f;		// - 0.05f		[Fonctionnel]
+	public float EnergiePerduLabourer = 0.05f;	// - 0.05f		[Fonctionnel]
 	
 	public float EnergiePerduNager = 0.1f;		// - 0.1f		[Fonctionnel]
 	public float EnergiePerduAttaque = 1f;		// - 0.1f		[Fonctionnel]
@@ -196,5 +198,16 @@ public class PyKEnergieEvent
 			
 		if(!player.worldObj.isRemote)
 			prop.removeEnergie(EnergiePerduMiner);
+	}
+	
+	// Joueur Laboure
+	@SubscribeEvent
+	public void onLaboure(UseHoeEvent event)
+	{		
+		EntityPlayer player = (EntityPlayer) event.entity;
+		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
+			
+		if(!player.worldObj.isRemote)
+			prop.removeEnergie(EnergiePerduLabourer);
 	}
 }
