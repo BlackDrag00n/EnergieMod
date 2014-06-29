@@ -17,8 +17,11 @@ import fr.minecraftforgefrance.ffmtlibs.network.PacketManager;
 import fr.paramystick.pykenergie.events.PyKEnergieEvent;
 import fr.paramystick.pykenergie.gui.PyKEnergieModTabs;
 import cpw.mods.fml.common.registry.GameRegistry;
-import fr.paramystick.pykenergie.items.ItemGourde;
+import fr.paramystick.pykenergie.items.ItemCafeBouteille;
+import fr.paramystick.pykenergie.items.ItemCafeSeau;
+import fr.paramystick.pykenergie.items.ItemGourdeEau;
 import fr.paramystick.pykenergie.items.ItemGourdeVide;
+import fr.paramystick.pykenergie.items.ItemLogo;
 
 @Mod(modid = "pykenergiemod", name = "PyK Energie Mod", version = "0.0.1", dependencies = "required-after:ffmtlibs")
 public class PyKEnergieMod
@@ -29,8 +32,12 @@ public class PyKEnergieMod
 	@Instance("pykenergiemod")
 	public static PyKEnergieMod instance;
     public static final String MODID = "pykenergiemod";
-    public static Item itemGourde; // Gourde
+    public static Item itemLogo; // Logo du mod
     public static Item itemGourdeVide; // Gourde Vide
+    public static Item itemGourdeEau; // Gourde d'eau
+    public static Item itemCafeBouteille; // Bouteille de café
+    public static Item itemCafeSeau; // Seau de café
+    
     
     /**
      * Déclaration des proxy, on appel cette méthode dans la méthode init
@@ -54,14 +61,29 @@ public class PyKEnergieMod
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		/* Ajout du logo onglet Creative */
+		itemLogo = new ItemLogo().setUnlocalizedName("logo").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
+		GameRegistry.registerItem(itemLogo, "item_logo");
+		/* --- */
+		
 		/* Ajout de la Gourde */
-		itemGourde = new ItemGourde().setUnlocalizedName("gourde").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
-		GameRegistry.registerItem(itemGourde, "item_gourde");
+		itemGourdeEau = new ItemGourdeEau().setUnlocalizedName("gourdeeau").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
+		GameRegistry.registerItem(itemGourdeEau, "item_gourde_eau");
 		/* --- */
 		
 		/* Ajout de la Gourde Vide*/
 		itemGourdeVide = new ItemGourdeVide().setUnlocalizedName("gourdevide").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
 		GameRegistry.registerItem(itemGourdeVide, "item_gourde_vide");
+		/* --- */
+		
+		/* Ajout de la Bouteille de café */
+		itemCafeBouteille = new ItemCafeBouteille().setUnlocalizedName("cafebouteille").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
+		GameRegistry.registerItem(itemCafeBouteille, "item_cafe_bouteille");
+		/* --- */
+		
+		/* Ajout du seau de café */
+		itemCafeSeau = new ItemCafeSeau().setUnlocalizedName("cafeseau").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
+		GameRegistry.registerItem(itemCafeSeau, "item_cafe_seau");
 		/* --- */
 	}
 
@@ -78,8 +100,9 @@ public class PyKEnergieMod
 		MinecraftForge.EVENT_BUS.register(new PyKEnergieEvent());
 		
 		//Recette de craft
-		GameRegistry.addRecipe(new ItemStack(itemGourdeVide), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string, 'Y', Items.leather}); /* Item Gourde Vide */
-		GameRegistry.addShapelessRecipe(new ItemStack(itemGourde), new Object[]{new ItemStack(PyKEnergieMod.itemGourdeVide, 1), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.potionitem, 1, 0)}); /* Item Gourde Vide */
+		/* Item Gourde Vide */	GameRegistry.addRecipe(new ItemStack(itemGourdeVide), new Object[]{"XYX", "Y#Y", "XYX", 'X', Items.string, 'Y', Items.leather});
+		/* Item Gourde Eau */	GameRegistry.addShapelessRecipe(new ItemStack(itemGourdeEau), new Object[]{new ItemStack(PyKEnergieMod.itemGourdeVide, 1), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.potionitem, 1, 0)});
+		/* Item Seau Café */	GameRegistry.addShapelessRecipe(new ItemStack(itemCafeSeau), new Object[]{new ItemStack(Items.bucket, 1), new ItemStack(PyKEnergieMod.itemCafeBouteille, 1), new ItemStack(PyKEnergieMod.itemCafeBouteille, 1), new ItemStack(PyKEnergieMod.itemCafeBouteille, 1)});
 		}
 
     /**

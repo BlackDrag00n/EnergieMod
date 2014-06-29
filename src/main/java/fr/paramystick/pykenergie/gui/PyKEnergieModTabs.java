@@ -2,6 +2,7 @@ package fr.paramystick.pykenergie.gui;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import fr.paramystick.pykenergie.core.PyKEnergieMod;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -22,6 +23,6 @@ public class PyKEnergieModTabs extends CreativeTabs
 	public Item getTabIconItem()
 	{
 		// TODO Auto-generated method stub
-		return Items.emerald;
+		return PyKEnergieMod.itemLogo;
 	}
 }

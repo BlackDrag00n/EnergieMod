@@ -34,19 +34,19 @@ public class PyKEnergieEvent
 	public int timerEnergie = 0;
 	public int timerCompteurMax = 20; // 20 = Toutes les secondes
 	
-	public float EnergiePerdu = 0.00001f; 		// - 0.00001f	[Fonctionnel]
+	public float EnergiePerdu = 0.005f; 			// - 0.00001f	[Fonctionnel]0.005f
 	
-	public float EnergiePerduSauter = 0.03f; 	// - 0.03f		[Fonctionnel]
+	public float EnergiePerduSauter = 0.1f; 		// - 0.03f		[Fonctionnel]0.1f
 	
-	public float EnergiePerduCourir = 0.05f; 	// - 0.05f		[Fonctionnel]
-	public float EnergiePerduAttaquer = 10f;	// - 0.05f		[Fonctionnel] (Triche Valeur/2 car bug 2x energie enlever, innexplicable)
-	public float EnergiePerduMiner = 0.05f;		// - 0.05f		[Fonctionnel]
-	public float EnergiePerduLabourer = 0.05f;	// - 0.05f		[Fonctionnel]
+	public float EnergiePerduCourir = 0.05f; 		// - 0.05f		[Fonctionnel]0.05f
+	public float EnergiePerduAttaquer = 0.15f;		// - 0.05f		[Fonctionnel]0.15f (Triche Valeur/2 car bug 2x energie enlever, innexplicable)
+	public float EnergiePerduMiner = 0.0125f;		// - 0.05f		[Fonctionnel]0.0125f
+	public float EnergiePerduLabourer = 0.0125f;	// - 0.05f		[Fonctionnel]0.0125f
 	
-	public float EnergiePerduNager = 0.1f;		// - 0.1f		[Fonctionnel]
-	public float EnergiePerduAttaque = 1f;		// - 0.1f		[Fonctionnel]
+	public float EnergiePerduNager = 0.0075f;		// - 0.1f		[Fonctionnel]0.0075f
+	public float EnergiePerduAttaque = 0.15f;		// - 0.1f		[Fonctionnel]0.15f
 	
-	public float EnergieGagnerDormir = 0.2f;	// + 0.2f		[Fonctionnel]
+	public float EnergieGagnerDormir = 0.2f;		// + 0.2f		[Fonctionnel]0.2f
 	
 	/** Event lors de la construction d'entité. */
 	@SubscribeEvent
@@ -111,7 +111,7 @@ public class PyKEnergieEvent
 			timerEnergie++;
 		
 		// Compteur atteint on vérifie (Timer d'energie) - Coté serveur seulement (si sur serveur)
-		if (!event.player.worldObj.isRemote && (timerEnergie == timerCompteurMax))
+		if (!event.player.worldObj.isRemote && (timerEnergie == timerCompteurMax) && (!event.player.capabilities.isCreativeMode))
 		{
 			// Joueur sans activité (ne cour pas et ne nage pas)
 			if(!event.player.isSprinting() && !(event.player.isInWater() && isPlayerMoving(event.player)))
@@ -159,7 +159,7 @@ public class PyKEnergieEvent
 			EntityPlayer player = (EntityPlayer) event.entity;
 			ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
 			
-			if(!player.worldObj.isRemote)
+			if ((!player.worldObj.isRemote) && (!player.capabilities.isCreativeMode))
 				prop.removeEnergie(EnergiePerduSauter);
 		}
 	}
@@ -174,7 +174,7 @@ public class PyKEnergieEvent
 	    EntityPlayer player = (EntityPlayer) event.source.getEntity();
 	    ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
 
-	    if(!player.worldObj.isRemote)
+	    if ((!player.worldObj.isRemote) && (!player.capabilities.isCreativeMode))
 	      prop.removeEnergie(EnergiePerduAttaque);
 	  }
 
@@ -184,7 +184,7 @@ public class PyKEnergieEvent
 	    EntityPlayer player = (EntityPlayer) event.entity;
 	    ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
 
-	    if(!player.worldObj.isRemote)
+	    if ((!player.worldObj.isRemote) && (!player.capabilities.isCreativeMode))
 	      prop.removeEnergie(EnergiePerduAttaquer/2); //(Triche Valeur/2 car bug 2x energie enlever, innexplicable)
 	  }
 	}
@@ -196,7 +196,7 @@ public class PyKEnergieEvent
 		EntityPlayer player = (EntityPlayer) event.getPlayer();
 		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
 			
-		if(!player.worldObj.isRemote)
+		if ((!player.worldObj.isRemote) && (!player.capabilities.isCreativeMode))
 			prop.removeEnergie(EnergiePerduMiner);
 	}
 	
@@ -207,7 +207,7 @@ public class PyKEnergieEvent
 		EntityPlayer player = (EntityPlayer) event.entity;
 		ExtendedPlayerEnergie prop = ExtendedPlayerEnergie.get(player);
 			
-		if(!player.worldObj.isRemote)
+		if ((!player.worldObj.isRemote) && (!player.capabilities.isCreativeMode))
 			prop.removeEnergie(EnergiePerduLabourer);
 	}
 }

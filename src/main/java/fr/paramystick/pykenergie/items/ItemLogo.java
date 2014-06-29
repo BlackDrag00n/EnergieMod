@@ -4,13 +4,13 @@ import fr.paramystick.pykenergie.core.PyKEnergieMod;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 
-public class ItemGourdeVide extends Item
+public class ItemLogo extends Item
 {
 	
 	@Override
 	public void registerIcons(IIconRegister iconregister)
 	{
-		this.itemIcon = iconregister.registerIcon(PyKEnergieMod.MODID + ":gourde_vide");
+		this.itemIcon = iconregister.registerIcon(PyKEnergieMod.MODID + ":logo");
 	}	
 
 }

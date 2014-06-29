@@ -16,11 +16,11 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
-public class ItemGourde extends Item
+public class ItemCafeSeau extends Item
 {
-	public float EnergieGagnerGourde = 100f; // Variable qui définie de combien on remontre l'energie
+	public float EnergieGagnerGourde = 100f; // Variable qui définie de combien on remonte l'energie
 	
-	public ItemGourde()
+	public ItemCafeSeau()
 	{
 		super();
 		this.setMaxStackSize(1);
@@ -43,7 +43,7 @@ public class ItemGourde extends Item
         	prop.addEnergie(EnergieGagnerGourde); // On a bu donc on remonte l'energie
         }
 
-        return stack.stackSize <= 0 ? new ItemStack(PyKEnergieMod.itemGourdeVide) : stack;
+        return stack.stackSize <= 0 ? new ItemStack(Items.bucket) : stack;
     }
 	
     public int getMaxItemUseDuration(ItemStack stack)
@@ -65,7 +65,7 @@ public class ItemGourde extends Item
     @SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconregister)
 	{
-		this.itemIcon = iconregister.registerIcon(PyKEnergieMod.MODID + ":itemgourde");
+		this.itemIcon = iconregister.registerIcon(PyKEnergieMod.MODID + ":cafe_seau");
 	}
 	
 	

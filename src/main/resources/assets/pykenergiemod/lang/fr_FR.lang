@@ -1,3 +1,6 @@
 itemGroup.PyKEnergieModTabs=PyK Energie Mod
-item.gourde.name=Gourde en cuir
+item.logo.name=Logo du mod PyK Energy
+item.gourdeeau.name=Gourde en cuir d'eau
 item.gourdevide.name=Gourde en cuir vide
+item.cafebouteille.name=Bouteille de café
+item.cafeseau.name=Seau de café
