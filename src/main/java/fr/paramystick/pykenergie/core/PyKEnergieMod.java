@@ -1,5 +1,7 @@
 package fr.paramystick.pykenergie.core;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -14,6 +16,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import fr.minecraftforgefrance.ffmtlibs.network.PacketManager;
+import fr.paramystick.pykenergie.blocs.BlockCafetiere;
 import fr.paramystick.pykenergie.events.PyKEnergieEvent;
 import fr.paramystick.pykenergie.gui.PyKEnergieModTabs;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -32,12 +35,20 @@ public class PyKEnergieMod
 	@Instance("pykenergiemod")
 	public static PyKEnergieMod instance;
     public static final String MODID = "pykenergiemod";
+    
+    /**
+     * Déclaration des ITEMS
+     */
     public static Item itemLogo; // Logo du mod
     public static Item itemGourdeVide; // Gourde Vide
     public static Item itemGourdeEau; // Gourde d'eau
     public static Item itemCafeBouteille; // Bouteille de café
     public static Item itemCafeSeau; // Seau de café
     
+    /**
+     * Déclaration des BLOCKS
+     */
+    public static Block blockCafetiere;
     
     /**
      * Déclaration des proxy, on appel cette méthode dans la méthode init
@@ -61,6 +72,10 @@ public class PyKEnergieMod
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+
+	    /**
+	     * Pré-initialisation des ITEMS
+	     */
 		/* Ajout du logo onglet Creative */
 		itemLogo = new ItemLogo().setUnlocalizedName("logo").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
 		GameRegistry.registerItem(itemLogo, "item_logo");
@@ -84,6 +99,14 @@ public class PyKEnergieMod
 		/* Ajout du seau de café */
 		itemCafeSeau = new ItemCafeSeau().setUnlocalizedName("cafeseau").setMaxStackSize(1).setCreativeTab(PyKEnergieModTabs);
 		GameRegistry.registerItem(itemCafeSeau, "item_cafe_seau");
+		/* --- */
+
+	    /**
+	     * Pré-initialisation des BLOCKS
+	     */
+		/* Ajout de la cafetiere */
+		blockCafetiere = new BlockCafetiere(Material.rock).setBlockName("cafetiere").setBlockTextureName(MODID + ":block_cafetiere").setCreativeTab(PyKEnergieModTabs);
+		GameRegistry.registerBlock(blockCafetiere, "block_cafetiere");
 		/* --- */
 	}
 
